@@ -1,3 +1,14 @@
+#logo-link
+{
+	width:191px;
+	height:151px;
+	text-decoration:none;
+	display:block;
+	background-image:url(../images/dw-logo-sprite.jpg);
+	background-position:191px 0;
+}
+#logo-link:hover,#logo-link:active	{ background-position:0 0; }
+
 #mostppl {
     background-color: lightblue;
 }
