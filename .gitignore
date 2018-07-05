@@ -4,3 +4,13 @@
 *gif
 \#*\#
 \.\#*
+poly/
+js/d3/
+d3.js
+fish/
+hello/
+^abc.html
+../*
+*sqlite3
+*__pycach*
+*settings.py
