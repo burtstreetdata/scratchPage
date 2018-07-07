@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,7 @@
 <div class="container-fluid">
   <h1>Small Grid</h1>
   <p>The following example will result in a 25%/75% split on small, medium and large devices. On extra small devices, it will stack (100% width).</p>
-  <p>Resize the browser window to see the effect.</p>
+  <p id='getit'>Resize the browser window to see the effect.</p>
   <div class="row">
     <div class="col-sm-3" style="background-color:yellow;">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br>
@@ -25,11 +26,27 @@
 <P id='json_status'>Status</p>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script>
- 
-  
-  
-  
+<script src="{% static 'bumcomp/js/d3/d3.js' %}"></script>
+<script src="{% static 'bumcomp/js/getJSON.js' %}"></script>
+<script>var p ;
+  function cbf(data) {
+  var p = data ;
+  statbox = $("#json_status");
+  console.log("boxscore page health: " + p.gameplaybyplay.lastUpdatedOn) ;
+  atbats=  p.gameplaybyplay.atBats.atBat
+  atbatsLen = atbats.length;
+  for(var i = 0 ; i < atbatsLen ; i++) {
+		      statbox.append( atbats[i].inning);
+		      statbox.append( atbats[i].battingTeam.Name);
+		      statbox.append( atbats[i].battingTeam.Name);
+		      statbox.append( atbats[i].atBatPlay[0].batterUp.result);
+		      
+		      
+		      ;
+  }
+  } ;
+  $("#json_status").text("Getting it now") ;
+  getpbp('x', 'y',  'z', cbf);
 </script>
 </body>
 </html>
