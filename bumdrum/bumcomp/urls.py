@@ -9,4 +9,5 @@ urlpatterns = [
     path('box/<away>/<home>/<int:date>',  views.boxscore, name='boxscore'),
     path('boxscore/<away>/<home>/<int:date>',  views.boxscore, name='boxscore'),
     path('json/pbp/<away>/<home>/<int:date>',views.pbp_json, name='pbp_json'),
+    path('json/matchups/<away>/<home>/<int:date>',views.json_game_matchups, name='json_game_matchups'),
 ]

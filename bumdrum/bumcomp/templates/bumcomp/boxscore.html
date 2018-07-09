@@ -28,8 +28,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="{% static 'bumcomp/js/d3/d3.js' %}"></script>
 <script src="{% static 'bumcomp/js/getJSON.js' %}"></script>
-<script>var p ;
+<script>
   function cbf(data) {
+  $("#json_status").text("GOT IT") ;
   var p = data ;
   statbox = $("#json_status");
   console.log("boxscore page health: " + p.gameplaybyplay.lastUpdatedOn) ;
@@ -46,7 +47,7 @@
   }
   } ;
   $("#json_status").text("Getting it now") ;
-  getpbp('x', 'y',  'z', cbf);
+  getpbp('{{away}}', '{{home}}',  '{{date}}', cbf);
 </script>
 </body>
 </html>

@@ -54,40 +54,40 @@ def pitcherBatterMatchups(pbpjson):
        
        atbats = pbpjson['gameplaybyplay']['atBats']['atBat']
        for  atbat in atbats:
-              
-              for atbatplay in atbat['atBatPlay']:
-                     if 'baseRunAttempt' in atbatplay and atbatplay['baseRunAttempt']['isWalkIntentional']=="true" :
-                            # on an intentional walk, there may be no pitches, so matchup
-                            # won't be present.
-                            batter = atbatplay['baseRunAttempt']['runningPlayer']
-                            batterId = batter['ID']
-                            batterName = f"{batter['FirstName']} {batter['LastName']}"
-                            pitcherId = lastmatchup['Pitcher']
+           for atbatplay in atbat['atBatPlay']:
+              if 'baseRunAttempt' in atbatplay and atbatplay['baseRunAttempt']['isWalkIntentional']=="true" :
+                  # on an intentional walk, there may be no pitches, so matchup
+                  # won't be present.
+                  batter = atbatplay['baseRunAttempt']['runningPlayer']
+                  batterId = batter['ID']
+                  batterName = f"{batter['FirstName']} {batter['LastName']}"
+                  pitcherId = lastmatchup['Pitcher']
 
-                     else : 
-                            if 'pitch' in atbatplay :
-                                   pitcher= atbatplay['pitch']['pitchingPlayer']
-                                   pitcherId = pitcher['ID']
-                                   pitcherName = f"{pitcher['FirstName']} {pitcher['LastName']}"
-                                   batter = atbatplay['pitch']['battingPlayer']
-                                   batterName = f"{batter['FirstName']} {batter['LastName']}"
-                                   batterId = batter['ID']
-                     if (pitcherId != None ) and (not pitcherId in list(map(lambda x: x['ID'], players))) :
-                            players.append({
-                                   "ID" : pitcherId,
-                                   "Name" :pitcherName
-                                   })
-                     if (batterId != None) and not (batterId in  list(map (lambda x: x['ID'], players))) :
-                            players.append({
-                                   "ID" : batterId,
-                                   "Name" :batterName
-                                   })
-                     thismatchup={'Batter': batterId, 'Pitcher': pitcherId}
-                     if (thismatchup['Batter'] != lastmatchup['Batter'] or
-                         thismatchup['Pitcher'] != lastmatchup['Pitcher'] ):
-                            matchups.append(thismatchup)
-                            lastmatchup=thismatchup;
-#       print(matchups)
+              else : 
+                  if 'pitch' in atbatplay :
+                     pitcher= atbatplay['pitch']['pitchingPlayer']
+                     pitcherId = pitcher['ID']
+                     pitcherName = f"{pitcher['FirstName']} {pitcher['LastName']}"
+                     batter = atbatplay['pitch']['battingPlayer']
+                     batterName = f"{batter['FirstName']} {batter['LastName']}"
+                     batterId = batter['ID']
+              if (pitcherId != None ) and (not pitcherId in list(map(lambda x: x['ID'], players))) :
+                     players.append({
+                            "ID" : pitcherId,
+                            "Name" :pitcherName
+                     })
+              if (batterId != None) and not (batterId in  list(map (lambda x: x['ID'], players))) :
+                     players.append({
+                            "ID" : batterId,
+                            "Name" :batterName
+                     })
+              thismatchup={'Batter': batterId, 'Pitcher': pitcherId}
+              if ((thismatchup['Batter'] != lastmatchup['Batter'] or
+                  thismatchup['Pitcher'] != lastmatchup['Pitcher'] ) and 
+              (thismatchup['Batter'] != None)
+              ):
+                     matchups.append(thismatchup)
+                     lastmatchup=thismatchup;
        return {'Matchups' : matchups,
                'Roster' : players}
 
